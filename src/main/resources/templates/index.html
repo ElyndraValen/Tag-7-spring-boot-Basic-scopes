@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${title}">Spring Boot Scopes</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>🚀 Spring Boot Basic - Tag 7</h1>
+        <p class="subtitle">Scopes in Spring: Singleton, Prototype, Request, Session & Application</p>
+        <p class="subtitle">Java Fleet Systems Consulting</p>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <h3>Was sind Scopes?</h3>
+            <p>
+                Scopes in Spring bestimmen, <strong>wie lange eine Bean-Instanz lebt</strong> und 
+                <strong>wie viele Instanzen</strong> Spring erstellt. Das ist super wichtig für 
+                Performance, Memory-Management und Thread-Safety!
+            </p>
+        </div>
+
+        <h2>🎯 Verfügbare Scope-Demonstrationen</h2>
+
+        <div class="scope-grid">
+            <!-- Singleton -->
+            <div class="scope-card">
+                <div class="icon">🔵</div>
+                <h3>Singleton Scope</h3>
+                <p><strong>Standard in Spring!</strong></p>
+                <p>Eine Instanz für die gesamte Anwendung. Wird beim Start erstellt und von allen geteilt.</p>
+                <div>
+                    <span class="badge">Default</span>
+                    <span class="badge">Thread-Safe nötig</span>
+                </div>
+                <a th:href="@{/singleton}" class="btn">Demo starten</a>
+            </div>
+
+            <!-- Prototype -->
+            <div class="scope-card">
+                <div class="icon">🟢</div>
+                <h3>Prototype Scope</h3>
+                <p><strong>Immer neu!</strong></p>
+                <p>Neue Instanz bei jedem getBean()-Aufruf. Jede Instanz ist unabhängig.</p>
+                <div>
+                    <span class="badge">Stateless</span>
+                    <span class="badge">Keine Shared State</span>
+                </div>
+                <a th:href="@{/prototype}" class="btn">Demo starten</a>
+            </div>
+
+            <!-- Request -->
+            <div class="scope-card">
+                <div class="icon">🟡</div>
+                <h3>Request Scope</h3>
+                <p><strong>Pro HTTP-Request</strong></p>
+                <p>Eine Instanz pro Request. Wird danach verworfen. Perfekt für request-spezifische Daten!</p>
+                <div>
+                    <span class="badge">Web only</span>
+                    <span class="badge">Pro Request</span>
+                </div>
+                <a th:href="@{/request}" class="btn">Demo starten</a>
+            </div>
+
+            <!-- Session -->
+            <div class="scope-card">
+                <div class="icon">🟣</div>
+                <h3>Session Scope</h3>
+                <p><strong>Pro User-Session</strong></p>
+                <p>Eine Instanz pro Session. Bleibt erhalten während der Session. Perfekt für User-Daten!</p>
+                <div>
+                    <span class="badge">Web only</span>
+                    <span class="badge">Pro User</span>
+                </div>
+                <a th:href="@{/session}" class="btn">Demo starten</a>
+            </div>
+
+            <!-- Application -->
+            <div class="scope-card">
+                <div class="icon">🔴</div>
+                <h3>Application Scope</h3>
+                <p><strong>Globaler ServletContext</strong></p>
+                <p>Eine Instanz für die gesamte Web-App, geteilt über alle Sessions. Ähnlich wie Singleton.</p>
+                <div>
+                    <span class="badge">Web only</span>
+                    <span class="badge">Global</span>
+                </div>
+                <a th:href="@{/application}" class="btn">Demo starten</a>
+            </div>
+
+            <!-- Vergleich -->
+            <div class="scope-card">
+                <div class="icon">📊</div>
+                <h3>Scope Vergleich</h3>
+                <p><strong>Alle auf einen Blick</strong></p>
+                <p>Vergleiche alle Scopes gleichzeitig und sieh den Unterschied in Aktion!</p>
+                <div>
+                    <span class="badge">Übersicht</span>
+                </div>
+                <a th:href="@{/comparison}" class="btn btn-secondary">Vergleich anzeigen</a>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>📚 Quick Reference</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Scope</th>
+                        <th>Instanzen</th>
+                        <th>Lebensdauer</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Singleton</strong></td>
+                        <td>1 pro Container</td>
+                        <td>Container Lifetime</td>
+                        <td>Services, Repositories, Stateless Beans</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prototype</strong></td>
+                        <td>Neu bei jedem getBean()</td>
+                        <td>Bis GC</td>
+                        <td>Stateful Objekte, Commands</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Request</strong></td>
+                        <td>1 pro HTTP Request</td>
+                        <td>Request Lifetime</td>
+                        <td>Request-spezifische Daten</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Session</strong></td>
+                        <td>1 pro HTTP Session</td>
+                        <td>Session Lifetime</td>
+                        <td>User-Daten, Shopping Cart</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Application</strong></td>
+                        <td>1 pro ServletContext</td>
+                        <td>Application Lifetime</td>
+                        <td>Global Counters, Caches</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Pro-Tipp</h3>
+            <p>
+                Die meisten Beans sollten <strong>Singleton</strong> sein! Das ist performant und 
+                macht Sinn für stateless Services. Nutze andere Scopes nur, wenn du sie wirklich brauchst.
+            </p>
+            <p>
+                <strong>Wichtig:</strong> Web-Scopes (Request, Session, Application) benötigen 
+                <code>proxyMode = TARGET_CLASS</code> wenn sie in Singleton-Beans injected werden!
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Java Fleet Systems Consulting - Spring Boot Basic Tag 7</p>
+        <p>Erstellt mit ❤️ und Spring Boot 3.2</p>
+    </footer>
+</body>
+</html>

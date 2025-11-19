@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${scope} + ' Scope Demo'">Scope Demo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <meta http-equiv="refresh" content="0">
+</head>
+<body>
+    <header>
+        <h1 th:text="'🚀 ' + ${scope} + ' Scope Demo'">Scope Demo</h1>
+        <p class="subtitle">Spring Boot Basic - Tag 7</p>
+        <a th:href="@{/}" class="btn btn-secondary">← Zurück zur Übersicht</a>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <h3>Was passiert hier?</h3>
+            <p th:text="${description}">Beschreibung des Scopes</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎯 Live Counter Demo</h2>
+            
+            <div class="counter-display">
+                <div class="counter-value" th:text="${count}">0</div>
+                <div class="counter-id">
+                    Counter ID: <code th:text="${counterId}">abc123</code>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h3>📊 Detaillierte Info</h3>
+                <pre th:text="${info}">Info wird hier angezeigt</pre>
+            </div>
+
+            <div style="text-align: center; margin: 2rem 0;">
+                <button class="btn" onclick="location.reload()">🔄 Reload & Increment</button>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🧪 Experimentiere!</h2>
+            <ul style="line-height: 2;">
+                <li>✅ <strong>Reload die Seite mehrmals</strong> - was passiert mit dem Counter?</li>
+                <li>✅ <strong>Öffne die Seite in einem neuen Tab</strong> - gleiche oder neue Instanz?</li>
+                <li>✅ <strong>Öffne die Seite im Inkognito-Modus</strong> - was ändert sich?</li>
+                <li>✅ <strong>Vergleiche mit anderen Scopes</strong> - was sind die Unterschiede?</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>💻 Code-Beispiel</h2>
+            <pre><code th:switch="${scope}">
+<span th:case="'Singleton'">@Service
+public class SingletonService {
+    // Eine Instanz für die gesamte App!
+    private Counter counter = new Counter();
+    
+    public void increment() {
+        counter.increment();
+    }
+}</span>
+<span th:case="'Prototype'">@Service
+@Scope("prototype")
+public class PrototypeService {
+    // Neue Instanz bei jedem getBean()!
+    private Counter counter = new Counter();
+    
+    public void increment() {
+        counter.increment();
+    }
+}</span>
+<span th:case="'Request'">@Component
+@Scope(value = WebApplicationContext.SCOPE_REQUEST, 
+      proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class RequestScopedBean {
+    // Eine Instanz pro HTTP-Request!
+    private Counter counter = new Counter();
+    
+    public void increment() {
+        counter.increment();
+    }
+}</span>
+<span th:case="'Session'">@Component
+@Scope(value = WebApplicationContext.SCOPE_SESSION,
+      proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class SessionScopedBean {
+    // Eine Instanz pro User-Session!
+    private Counter counter = new Counter();
+    
+    public void increment() {
+        counter.increment();
+    }
+}</span>
+<span th:case="'Application'">@Component
+@Scope(value = WebApplicationContext.SCOPE_APPLICATION,
+      proxyMode = ScopedProxyMode.TARGET_CLASS)
+public class ApplicationScopedBean {
+    // Eine Instanz für alle User!
+    private Counter counter = new Counter();
+    
+    public void increment() {
+        counter.increment();
+    }
+}</span>
+            </code></pre>
+        </div>
+
+        <div class="scope-grid">
+            <div class="scope-card" th:if="${scope} != 'Singleton'">
+                <h3>🔵 Singleton</h3>
+                <a th:href="@{/singleton}" class="btn">Zu Singleton</a>
+            </div>
+            <div class="scope-card" th:if="${scope} != 'Prototype'">
+                <h3>🟢 Prototype</h3>
+                <a th:href="@{/prototype}" class="btn">Zu Prototype</a>
+            </div>
+            <div class="scope-card" th:if="${scope} != 'Request'">
+                <h3>🟡 Request</h3>
+                <a th:href="@{/request}" class="btn">Zu Request</a>
+            </div>
+            <div class="scope-card" th:if="${scope} != 'Session'">
+                <h3>🟣 Session</h3>
+                <a th:href="@{/session}" class="btn">Zu Session</a>
+            </div>
+            <div class="scope-card" th:if="${scope} != 'Application'">
+                <h3>🔴 Application</h3>
+                <a th:href="@{/application}" class="btn">Zu Application</a>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Java Fleet Systems Consulting - Spring Boot Basic Tag 7</p>
+    </footer>
+</body>
+</html>

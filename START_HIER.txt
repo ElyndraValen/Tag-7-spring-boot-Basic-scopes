@@ -1,0 +1,149 @@
+╔══════════════════════════════════════════════════════════════════════════╗
+║                                                                          ║
+║   Spring Boot Basic - Tag 7: Scopes in Spring                          ║
+║   Java Fleet Systems Consulting                                         ║
+║                                                                          ║
+╚══════════════════════════════════════════════════════════════════════════╝
+
+🎯 WILLKOMMEN!
+
+Dieses Projekt demonstriert alle wichtigen Bean Scopes in Spring Boot:
+• Singleton (Default)
+• Prototype
+• Request
+• Session
+• Application
+
+═══════════════════════════════════════════════════════════════════════════
+
+📋 SCHNELLSTART
+
+1. VORAUSSETZUNGEN PRÜFEN
+   ☑ Java 21 (LTS) installiert?
+   ☑ Maven 3.9+ installiert?
+   ☑ IDE (IntelliJ, Eclipse, VS Code, NetBeans)?
+
+2. PROJEKT ÖFFNEN
+   → Öffne das Projekt in deiner IDE als Maven-Projekt
+   → Oder nutze die Kommandozeile
+
+3. DEPENDENCIES INSTALLIEREN
+   Terminal/CMD öffnen und ausführen:
+   
+   mvn clean install
+
+4. ANWENDUNG STARTEN
+   
+   Variante A - Mit Maven:
+   mvn spring-boot:run
+
+   Variante B - In der IDE:
+   Führe SpringScopesApplication.java aus
+
+5. BROWSER ÖFFNEN
+   Nach dem Start:
+   🌐 http://localhost:8080
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎨 DESIGN
+
+Das Projekt nutzt den Java Fleet Style:
+• Dark Orange (#FF6B35) als Hauptfarbe
+• Dunkler Hintergrund (#1a1a2e)
+• Moderne, professionelle UI
+• Responsive Design
+
+═══════════════════════════════════════════════════════════════════════════
+
+🧪 WAS KANNST DU TESTEN?
+
+Nach dem Start stehen dir folgende Seiten zur Verfügung:
+
+/ .................... Übersichtsseite mit allen Scopes
+/singleton ........... Singleton Scope Demo
+/prototype ........... Prototype Scope Demo
+/request ............. Request Scope Demo
+/session ............. Session Scope Demo
+/application ......... Application Scope Demo
+/comparison .......... Alle Scopes im Vergleich
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 EXPERIMENTIER-TIPPS
+
+1. Reload die Seiten mehrmals
+   → Was passiert mit den Countern?
+
+2. Öffne die Seite in mehreren Tabs
+   → Welche Counter teilen sich die Instanz?
+
+3. Öffne die Seite im Inkognito-Modus
+   → Wie verhalten sich die Session-Scopes?
+
+4. Schau dir die Konsolen-Ausgabe an
+   → Spring loggt, wann neue Instanzen erstellt werden!
+
+═══════════════════════════════════════════════════════════════════════════
+
+📁 WICHTIGE DATEIEN
+
+README.md ..................... Vollständige Dokumentation
+pom.xml ....................... Maven Dependencies
+src/main/java/ ................ Java Source Code
+  └─ controller/ .............. Web Controller
+  └─ service/ ................. Scope Demonstrationen
+  └─ model/ ................... Counter Bean
+src/main/resources/
+  └─ templates/ ............... Thymeleaf HTML Templates
+  └─ static/css/ .............. CSS Stylesheets
+  └─ application.properties ... Spring Konfiguration
+
+═══════════════════════════════════════════════════════════════════════════
+
+🐛 PROBLEME?
+
+Port 8080 bereits belegt?
+→ Ändere in application.properties: server.port=8081
+
+Dependencies nicht gefunden?
+→ Führe aus: mvn clean install -U
+
+IDE findet Klassen nicht?
+→ Maven reimport / Refresh
+
+Weitere Hilfe?
+→ Siehe README.md oder Konsolen-Output
+
+═══════════════════════════════════════════════════════════════════════════
+
+📚 WEITERFÜHRENDE RESSOURCEN
+
+• README.md - Detaillierte Dokumentation
+• Spring Docs: https://docs.spring.io/spring-framework/reference/
+• Java Fleet: https://java-developer.online
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎓 LERNZIELE
+
+Nach diesem Projekt solltest du:
+✓ Alle 5 Scopes verstehen
+✓ Wissen, wann welcher Scope sinnvoll ist
+✓ Thread-Safety Konzepte kennen
+✓ proxyMode verstehen
+✓ Praktische Erfahrung mit Scopes haben
+
+═══════════════════════════════════════════════════════════════════════════
+
+📞 KONTAKT
+
+Java Fleet Systems Consulting
+Web: java-developer.online
+Mail: support@java-developer.online
+
+═══════════════════════════════════════════════════════════════════════════
+
+Viel Erfolg beim Lernen! 🚀
+
+© 2024 Java Fleet Systems Consulting

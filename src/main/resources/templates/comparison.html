@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scope Vergleich</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <header>
+        <h1>📊 Scope Vergleich</h1>
+        <p class="subtitle">Alle Scopes auf einen Blick</p>
+        <a th:href="@{/}" class="btn btn-secondary">← Zurück zur Übersicht</a>
+    </header>
+
+    <div class="container">
+        <div class="info-box">
+            <h3>🎯 Was siehst du hier?</h3>
+            <p>
+                Diese Seite zeigt alle Scopes gleichzeitig an. Reload die Seite mehrmals und beobachte, 
+                welche Counter sich ändern und welche gleich bleiben!
+            </p>
+            <p>
+                <strong>Pro-Tipp:</strong> Öffne die Seite in verschiedenen Tabs und im Inkognito-Modus, 
+                um die Unterschiede zwischen den Scopes zu verstehen!
+            </p>
+        </div>
+
+        <div class="scope-grid">
+            <!-- Singleton -->
+            <div class="demo-section">
+                <h2>🔵 Singleton Scope</h2>
+                <pre th:text="${singleton}">Singleton Info</pre>
+                <p><strong>Erwartung:</strong> Counter steigt bei JEDEM Reload, egal welcher Tab!</p>
+            </div>
+
+            <!-- Request -->
+            <div class="demo-section">
+                <h2>🟡 Request Scope</h2>
+                <pre th:text="${request}">Request Info</pre>
+                <p><strong>Erwartung:</strong> Counter ist immer 1, neue ID bei jedem Reload!</p>
+            </div>
+
+            <!-- Session -->
+            <div class="demo-section">
+                <h2>🟣 Session Scope</h2>
+                <pre th:text="${session}">Session Info</pre>
+                <p><strong>Erwartung:</strong> Counter steigt in derselben Session, neue ID in Inkognito!</p>
+            </div>
+
+            <!-- Application -->
+            <div class="demo-section">
+                <h2>🔴 Application Scope</h2>
+                <pre th:text="${application}">Application Info</pre>
+                <p><strong>Erwartung:</strong> Counter steigt für ALLE User, gleiche ID überall!</p>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <button class="btn" onclick="location.reload()">🔄 Reload & Testen</button>
+        </div>
+
+        <div class="demo-section">
+            <h2>🧪 Experimentier-Guide</h2>
+            
+            <h3>Experiment 1: Reload im selben Tab</h3>
+            <ul>
+                <li>✅ Singleton: Counter steigt (1 → 2 → 3 ...)</li>
+                <li>✅ Request: Counter bleibt bei 1 (neue Instanz!)</li>
+                <li>✅ Session: Counter steigt (1 → 2 → 3 ...)</li>
+                <li>✅ Application: Counter steigt (1 → 2 → 3 ...)</li>
+            </ul>
+
+            <h3>Experiment 2: Neuer Tab (gleiche Session)</h3>
+            <ul>
+                <li>✅ Singleton: Counter steigt weiter (shared!)</li>
+                <li>✅ Request: Counter bei 1 (neue Instanz!)</li>
+                <li>✅ Session: Counter steigt weiter (gleiche Session!)</li>
+                <li>✅ Application: Counter steigt weiter (shared!)</li>
+            </ul>
+
+            <h3>Experiment 3: Inkognito-Modus (neue Session)</h3>
+            <ul>
+                <li>✅ Singleton: Counter steigt weiter (shared!)</li>
+                <li>✅ Request: Counter bei 1 (neue Instanz!)</li>
+                <li>✅ Session: Counter bei 1 (NEUE Session!)</li>
+                <li>✅ Application: Counter steigt weiter (shared!)</li>
+            </ul>
+        </div>
+
+        <div class="demo-section">
+            <h2>📚 Wann nutze ich welchen Scope?</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Scope</th>
+                        <th>Use Cases</th>
+                        <th>Vorsicht bei...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Singleton</strong></td>
+                        <td>
+                            • Services<br>
+                            • Repositories<br>
+                            • Stateless Beans<br>
+                            • Configuration
+                        </td>
+                        <td>
+                            • Mutable State<br>
+                            • Thread-Safety!<br>
+                            • Instance Variables
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prototype</strong></td>
+                        <td>
+                            • Commands<br>
+                            • Stateful Objekte<br>
+                            • Tasks<br>
+                            • DTOs mit Logic
+                        </td>
+                        <td>
+                            • Memory-Leaks<br>
+                            • Expensive Objects<br>
+                            • @PreDestroy läuft nicht!
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Request</strong></td>
+                        <td>
+                            • Request-Daten<br>
+                            • User Input<br>
+                            • Request Context<br>
+                            • Temporary Data
+                        </td>
+                        <td>
+                            • Nur in Web-Apps!<br>
+                            • ProxyMode nötig<br>
+                            • Performance
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Session</strong></td>
+                        <td>
+                            • User-Daten<br>
+                            • Shopping Cart<br>
+                            • Preferences<br>
+                            • Login State
+                        </td>
+                        <td>
+                            • Memory Usage!<br>
+                            • Session Timeout<br>
+                            • ProxyMode nötig
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Application</strong></td>
+                        <td>
+                            • Global Counters<br>
+                            • App-wide Cache<br>
+                            • Statistics<br>
+                            • Shared Config
+                        </td>
+                        <td>
+                            • Thread-Safety!<br>
+                            • ProxyMode nötig<br>
+                            • Ähnlich wie Singleton
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 Key Takeaways</h3>
+            <ul>
+                <li>✅ <strong>Singleton</strong> ist der Default - nutze ihn für 90% deiner Beans!</li>
+                <li>✅ <strong>Prototype</strong> nur wenn du wirklich neue Instanzen brauchst</li>
+                <li>✅ <strong>Request</strong> für temporäre, request-spezifische Daten</li>
+                <li>✅ <strong>Session</strong> für User-Daten während der Session</li>
+                <li>✅ <strong>Application</strong> selten nötig, meist ist Singleton besser</li>
+                <li>⚠️ Web-Scopes brauchen <code>proxyMode = TARGET_CLASS</code>!</li>
+                <li>⚠️ Achte auf Thread-Safety bei Singleton und Application!</li>
+            </ul>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Java Fleet Systems Consulting - Spring Boot Basic Tag 7</p>
+    </footer>
+</body>
+</html>
