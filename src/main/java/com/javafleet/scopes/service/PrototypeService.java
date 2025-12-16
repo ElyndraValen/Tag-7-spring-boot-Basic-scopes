@@ -2,6 +2,7 @@ package com.javafleet.scopes.service;
 
 import com.javafleet.scopes.model.Counter;
 import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Service;
  * NEUE Instanz bei jedem Request vom ApplicationContext!
  * Nicht Thread-Safe, da jeder eine eigene Instanz bekommt.
  */
-@Service
+@Component
 @Scope("prototype")
 public class PrototypeService {
     

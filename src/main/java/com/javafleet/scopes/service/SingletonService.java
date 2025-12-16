@@ -1,6 +1,7 @@
 package com.javafleet.scopes.service;
 
 import com.javafleet.scopes.model.Counter;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 /**
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
  * EINE Instanz für die gesamte Anwendung!
  * Default Scope in Spring - wird beim Start erstellt.
  */
-@Service
+@Component
 public class SingletonService {
     
     private final Counter counter;
